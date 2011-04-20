@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Call Log Exporter</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="//static1.twilio.com/packages/base.css?89a6bcd75d366af50909acc611abf945" /> 
+		<link rel="stylesheet" type="text/css" href="//static0.twilio.com/packages/home.css?bc57f3b9af99efa66f9fb30b21985f67" /> 
+	</head>
+	<body>
+
+		<div id="wrap-header"> 
+				<div id="main-header"> 
+					<a id="header-logo" href="/"><img src="//static0.twilio.com/packages/base/images/twilio-header-logo.png" /></a> 
+
+						<ul id="main-navigation"> 
+								<li ><a href="/"  ><b>Call Log Exporter</b></a></li> 
+						</ul><!-- #main-navigation --> 
+
+				</div><!-- #main-header --> 
+			</div><!-- #wrap-header --> 
+
+
+		<div id="main" style="padding-left:100px;">
+			<h1>Call Log Exporter</h1>
+			<form method="POST" action="/">
+				<p>
+					<label for="account_sid">Account SID</label>
+					<input id="account_sid" type="text" name="account_sid" maxlength="34" required>
+				</p>
+
+				<p>
+					<label for="auth_token">Auth Token</label>
+					<input id="auth_token" type="text" name="auth_token" maxlength="32" required>
+				</p>
+
+				<p>
+					<label for="start_date">Start Date</label>
+					<input id="start_date" type="date" name="start_date" value="<%= (Time.now-(60*60*24*30)).strftime("%Y-%m-%d") %>" required>
+				</p>
+
+				<p>
+					<label for="end_date">End Date</label>
+					<input id="end_date" type="date" name="end_date" value="<%= Time.now.strftime("%Y-%m-%d") %>" required>
+				</p>
+
+				<p>
+					<input class="button orange" type="submit" name="submit" value="Export log">
+					<br class="clearfix">
+				</p>
+			</form>
+		</div>
+		</div>
+	</body>
+</html>
