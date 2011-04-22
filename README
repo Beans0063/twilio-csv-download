@@ -1,0 +1,1 @@
+Use this Sinatra app to download your Twilio log data in a csv format.  You must specify a date range for the report and can download voice or SMS files.  See the blog post here for more details.
