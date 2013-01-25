@@ -9,7 +9,7 @@ require "fastercsv"
 API_VERSION = '2010-04-01'
 PAGE_SIZE=500
 CALL_CSV_HEADERS=["From","To","Call Start Time","Call End Time","Call Duration (minutes)","Call Price per Minute","Total Call Cost","Call Status","Call SID"] #header row
-SMS_CSV_HEADERS=["From","To","Body","Semt Time","Price","Status","SMS SID"] #csv header row
+SMS_CSV_HEADERS=["From","To","Body","Sent Time","Price","Status","SMS SID"] #csv header row
 
 def get_calls(starttime,endtime,pagesize,page)
   #make a REST call to Twilio Calls List resource http://www.twilio.com/docs/api/rest/call#list
