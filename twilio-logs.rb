@@ -12,7 +12,7 @@ PAGE_SIZE=500
 def get_calls(starttime,endtime,pagesize,page)
   #make a REST call to Twilio Calls resource
   account = Twilio::RestAccount.new(params[:account_sid], params[:auth_token])
-  d = { "StartTime>" => starttime,  "EndTime<" => endtime,"PageSize" => pagesize,"Page" => page}
+  d = { "StartTime>" => starttime,  "StartTime<" => endtime,"PageSize" => pagesize,"Page" => page}
   resp = account.request("/#{API_VERSION}/Accounts/#{params[:account_sid]}/Calls", 'GET', d)
 end
 
@@ -51,7 +51,7 @@ def csv_output
   resp.error! unless resp.kind_of? Net::HTTPSuccess
   doc  = Nokogiri::XML(resp.body)
   numpages=((doc.xpath("//Calls").first.attributes["numpages"].value).to_i)-1
-  return "Result too large, try a smaller date range" if numpages > 30
+  return "Result too large, try a smaller date range" if numpages > 60
   puts "#{numpages} pages to fetch"
   csv_string = FasterCSV.generate do |csv|
     csv << ["From","To","Call Start Time","Call End Time","Call Duration (minutes)","Call Price per Minute","Total Call Cost","Call Status","Call SID"] #header row
@@ -113,8 +113,8 @@ post '/' do
   begin
     headers "Content-Disposition" => "attachment;filename=report.csv", "Content-Type" => "application/octet-stream"
     csv_output
-  rescue
-    "error validating parameters, please ensure account and auth token are correct and dates are in the format of YYYY-MM-DD and try again."
+  rescue Exception => e  
+    "error validating parameters, please ensure account and auth token are correct and dates are in the format of YYYY-MM-DD and try again. #{e.message}"
   end
 end
 
